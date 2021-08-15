@@ -154,76 +154,75 @@ for i , v in pairs(Crates) do
     end
 end
 
-    cccc.HatchEgg =	function(a1, a2, a3, a4, a5, a6, a7, a8, a9)
-                        local name = a3
-                        local eggsOpenedindex = require(game:GetService("ReplicatedStorage").Assets.Modules.Library.index)["EGGS_OPENED"]
-                        local e = f:InvokeServer("GetPlayerData")
-                        local eggsFormatted = e[eggsOpenedindex]
-                        local rarity = GetRarity(name)
-                        local isShiny = a7
-                        local petimage
-                        local skipAlert = false
-                        for x,y in pairs(pets) do
-                            if x == name then
-                                petimage = y
-                            end
-                        end
-                        local chance = GetChance(name)
-                        local legendColor = ""
-                        for i , v in pairs(GreenLeg) do 
-                            if v == name then
-                                legendColor = "green"
-                            end
-                        end
-                        for i , v in pairs(BlueLeg) do 
-                            if v == name then
-                                legendColor = "blue"
-                            end
-                        end
-                        for i , v in pairs(HGreenLeg) do 
-                            if v == name then
-                                legendColor = "green"
-                            end
-                        end
-                        for i , v in pairs(HBlueLeg) do 
-                            if v == name then
-                                legendColor = "blue"
-                            end
-                        end
-                        if a6 ~= nil then
-                            eggsFormatted = eggsFormatted - 3 + a6
-                        end
-                        while true do  
-                            eggsFormatted, k = string.gsub(eggsFormatted, "^(-?%d+)(%d%d%d)", '%1,%2')
-                            if (k==0) then
-                                break
-                            end
-                        end
+cccc.HatchEgg =	function(a1, a2, a3, a4, a5, a6, a7, a8, a9)
+	local name = a3
+	local eggsOpenedindex = require(game:GetService("ReplicatedStorage").Assets.Modules.Library.index)["EGGS_OPENED"]
+	local e = f:InvokeServer("GetPlayerData")
+	local eggsFormatted = e[eggsOpenedindex]
+	local rarity = GetRarity(name)
+	local isShiny = a7
+	local petimage
+	local skipAlert = false
+	for x,y in pairs(pets) do
+		if x == name then
+			petimage = y
+		end
+	end
+	local chance = GetChance(name)
+	local legendColor = ""
+	for i , v in pairs(GreenLeg) do 
+		if v == name then
+			legendColor = "green"
+		end
+	end
+	for i , v in pairs(BlueLeg) do 
+		if v == name then
+			legendColor = "blue"
+		end
+	end
+	for i , v in pairs(HGreenLeg) do 
+		if v == name then
+			legendColor = "green"
+		end
+	end
+	for i , v in pairs(HBlueLeg) do 
+		if v == name then
+			legendColor = "blue"
+		end
+	end
+	if a6 ~= nil then
+		eggsFormatted = eggsFormatted - 3 + a6
+	end
+	while true do  
+		eggsFormatted, k = string.gsub(eggsFormatted, "^(-?%d+)(%d%d%d)", '%1,%2')
+		if (k==0) then
+			break
+		end
+	end
 
-                        for i,v in pairs(_G.SkipRarities) do
-                            if rarity == v then
-                                skipAlert = true
-                            end
-                        end
+	for i,v in pairs(_G.SkipRarities) do
+		if rarity == v then
+			skipAlert = true
+		end
+	end
 
-                        if _G.SkipPets ~= nil then
-                            for i,v in pairs(_G.SkipPets) do
-                                if v == name then
-                                    skipAlert = true
-                                end
-                            end
-                        end
-                                                    
-                        if cccc:IsSecretItem(name) then
-                            rarity = "SECRET"
-                        end			
-                        
-                        if not skipAlert then
-                            inventoryAlert(name, rarity, isShiny, legendColor, petimage, eggsFormatted, chance)
-                            --print(name, rarity, isShiny, legendColor, petimage, eggsFormatted, chance)
-                        end
-                        
-                    end
+	if _G.SkipPets ~= nil then
+		for i,v in pairs(_G.SkipPets) do
+			if v == name then
+				skipAlert = true
+			end
+		end
+	end
+														
+	if cccc:IsSecretItem(name) then
+		rarity = "SECRET"
+	end			
+							
+	if not skipAlert then
+		inventoryAlert(name, rarity, isShiny, legendColor, petimage, eggsFormatted, chance)
+		--print(name, rarity, isShiny, legendColor, petimage, eggsFormatted, chance)
+	end						
+end
 
 
 print('Pet Hatch Alert Is Now On..')
